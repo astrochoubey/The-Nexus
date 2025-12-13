@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Estonia&family=Girassol&family=Kings&family=Oxanium:wght@200..800&family=Trade+Winds&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hed{
+    font-family: "Trade Winds", sans-system-ui;
+    color: #f0e6f6;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 60px;
+}
+
+.logo{
+    height: 100px;
+    width: 100px;
+}
+body{
+    background-color: black;
+    background-image: url("Archive/Backgrounds Pin.jpeg");
+}
+
+p{
+    font-family: "Oxanium", sans-system-ui;
+    color: #f0e6f6;
+    text-align: center;
+    margin: 50px;
+    font-size: 20px;
+}
+
+header{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    font-family: "Oxanium", sans-system-ui;
+    justify-content: justify;
+}
+
+.logo-container{
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+}
+.nav-links{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    color: #35bbf5;
+    text-decoration: none;
+}
+
+.content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+}
+
+.intro{
+    background-color: rgba(0, 0, 0, 0.802);
+    margin: 50px;
+    padding: 20px;
+    border-radius: 10px;
+    border:#35bbf5bd 2px solid;
+}
+
+.sidehead{
+    font-family: "Oxanium", sans-system-ui;
+    color: #f0e6f6;
+    text-align: left;
+    margin: 12px;
+    font-size: 25px;
+    background-color: rgba(0, 0, 0, 0.694);
+    border: #35bbf5bd 2px solid;
+    border-radius: 10px;
+}
