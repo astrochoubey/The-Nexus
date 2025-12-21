@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Estonia&family=Girassol&family=Kings&family=Oxanium:wght@200..800&family=Trade+Winds&display=swap');
+
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.hed{
+    font-family: "Trade Winds", sans-system-ui;
+    color: #f0e6f6;
+    text-align: center;
+    margin-top: 50px;
+    font-size: 60px;
+}
+
+
+body{
+    background-color: black;
+    background-image: url("Archive/Nexus Background Wallpaper.png");
+}
+
+p{
+    font-family: "Oxanium", sans-system-ui;
+    color: #f0e6f6;
+    text-align: center;
+    margin: 50px;
+    font-size: 20px;
+}
+
+header{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    font-family: "Oxanium", sans-system-ui;
+    justify-content: justify;
+}
+
+.logo-container{
+    display: inline-block;
+    float: left;
+    margin-left: 20px;
+}
+.nav-links{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+a{
+    color: #35bbf5;
+    text-decoration: none;
+}
+
+.intro-section{
+    margin: 50px;
+    padding: 20px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}

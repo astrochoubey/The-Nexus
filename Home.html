@@ -5,12 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
     <link rel="stylesheet" href="Home.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
+
 </head>
 <body>
     <header>
-        <div class ="logo-container">
-            <img class ="logo" src="Archive/DARK_OUTSIDE_logos_-_Thomas_Bokler-removebg-preview (1).png" alt="Logo">
-        </div>
         <div class ="navbar-container">
             <nav class ="navbar"> 
                 <ul class = "nav-links">
@@ -19,21 +18,55 @@
                     <li><a href ="Portfolio.html" target="_self">Portfolio</a></li>
                     <li><a href ="Research.html">Research</a></li>
                     <li><a href ="TheList.html">The List</a></li>
+                    <li><a href ="Notebook.html">Notebook</a></li>
                 </ul>
             </nav>
         </div>
     </header>
-    <section class="content">
-        <div>
-            <ul class="sidehead">Helpful Links:
-                <li><a href="https://web.dev/learn/html/introduction-to-html" target="_self"> Introduction to HTML</a></li>
-                <li><a href="https://web.dev/learn/html/introduction-to-html" target="_self"> Introduction to HTML</a></li>
-            </ul>
-        </div>
-        <div class = "intro">
-            <h1 class="hed">Welcome to The Nexus</h1>
-            <p class="para">This is a website dedicated to tracking my life work at one place because I have free will and I can do whatever I want and none of y'all can stop me. HAHAHHAHAHA!</p>
-        </div>
-    </section>
+
+
+    <main class="main-content">
+        <section class="intro-section">
+            <div class="intro-text">
+                <h1 class = "heading">The Nexus</h1>
+                <p class="introduction-para">Explore the intersection of art and science through my curated portfolio, in-depth research, and personal notebook. Dive into a world where creativity meets knowledge.</p> 
+            </div>
+        </section>
+        <section class="newsection">  
+            <div class ="apod-section">
+                <h2 id="apod-title"></h2>
+
+                <img id="apod-img" style="max-width:100%; display:none;">
+                <iframe id="apod-video"
+                    width="560"
+                    height="315"
+                    frameborder="0"
+                    allowfullscreen
+                    style="display:none;">
+                </iframe>
+                <p id="apod-desc"></p>
+            </div>  
+            <div>
+                <h2>About Me!</h2>
+                <p>Hello! I'm Prachi Choubey, an aspiring theoretical physicist and student researcher in the field of computational cosmology, astrophysics and recently space technology. I'm an cs undergrad who is somehow also studing physics for another degree 🤷🏻‍♀️ Anyhow welcome to The Nexus, where I share everything and anything I want just because I can, let me show you the insane world of physics, art, and creativity that has me in its chokehole. Here, you'll find my portfolio showcasing projects that blend scientific concepts with artistic expression, as well as my research endeavors and personal notebook. Leave me alone as I explore the wonders of the universe and express them through various mediums *side eye*. </p>
+            </div>
+            <div>
+
+            </div>
+        </section>
+
+        
+            
+
+
+            
+    </main>
+
+    
+    <footer class="footer">
+        <p class="footer-text">© 2024 The Nexus. All rights reserved.</p>
+    </footer>
+    <script src="Home.js"></script>
+
 </body>
 </html>

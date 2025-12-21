@@ -1,87 +1,129 @@
 @import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Estonia&family=Girassol&family=Kings&family=Oxanium:wght@200..800&family=Trade+Winds&display=swap');
 
 *{
-    margin: 0;
-    padding: 0;
+    margin-left: 30px;
+    margin-right: 30px;
+    margin-bottom: 20px;
     box-sizing: border-box;
 }
 
-.hed{
-    font-family: "Trade Winds", sans-system-ui;
-    color: #f0e6f6;
-    text-align: center;
-    margin-top: 50px;
-    font-size: 60px;
-}
 
-.logo{
-    height: 100px;
-    width: 100px;
-}
+
 body{
     background-color: black;
-    background-image: url("Archive/Backgrounds Pin.jpeg");
+    background-image: url("Archive/Nexus Background Wallpaper.png");
 }
 
 p{
     font-family: "Oxanium", sans-system-ui;
     color: #f0e6f6;
-    text-align: center;
+    text-align: justify;
     margin: 50px;
     font-size: 20px;
 }
 
-header{
-    background-color: rgba(0, 0, 0, 0.6);
+.navbar-container{
+    background-color: transparent;
     padding: 10px;
-    text-align: center;
-    font-size: 15px;
-    color: white;
-    font-family: "Oxanium", sans-system-ui;
-    justify-content: justify;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
-.logo-container{
-    display: inline-block;
-    float: left;
-    margin-left: 20px;
-}
+
+
+/* .navbar-container{
+    text-align: center;
+    margin-right: 0px; 
+
+} */
+
 .nav-links{
     display: flex;
+    flex-direction: row;
     justify-content: center;
-    gap: 20px;
+    gap: 0px;
+    font-size: 18px;
+    font-family: "Oxanium", sans-system-ui;
+    text-align: center;
     list-style: none;
     padding: 0;
     margin: 0;
 }
 
 a{
-    color: #35bbf5;
+    color: #85cbe9;
     text-decoration: none;
 }
 
-.content{
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 80vh;
-}
 
-.intro{
-    background-color: rgba(0, 0, 0, 0.802);
-    margin: 50px;
-    padding: 20px;
-    border-radius: 10px;
-    border:#35bbf5bd 2px solid;
-}
-
-.sidehead{
+.footer{
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
     font-family: "Oxanium", sans-system-ui;
-    color: #f0e6f6;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 100px);
+}
+
+
+/* Main section styles */
+
+.heading{
+    font-family: "Trade Winds", sans-system-ui;
+    color: #f2da61;
     text-align: left;
-    margin: 12px;
-    font-size: 25px;
-    background-color: rgba(0, 0, 0, 0.694);
-    border: #35bbf5bd 2px solid;
-    border-radius: 10px;
+    margin-top: 0;
+    font-size: 80px;
+    text-shadow: #91c9e1 2px 2px 4px;
+}
+
+.intro-section{
+    display: grid;
+    grid-template-rows: 2fr 3fr;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px;
+}
+
+.intro-text{
+    display: grid;
+    grid-template-columns: auto auto;
+
+}
+
+.introduction-para{
+    font-family: "Oxanium", sans-system-ui;
+    color: #85cbe9;
+    text-align: left;
+    margin: 20px;
+    font-size: 24px;
+    line-height: 1.6;
+}
+
+.newsection{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+    margin: 50px;
+}
+
+#apod {
+  max-width: 700px;
+  margin: auto;
+  text-align: center;
+}
+
+#apod-img {
+  width: 100%;
+  border-radius: 12px;
+  margin: 15px 0;
+}
+
+#apod-desc {
+  font-size: 0.95rem;
+  opacity: 0.85;
 }
