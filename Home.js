@@ -21,3 +21,9 @@ fetch(url)
     }
   })
   .catch(err => console.error(err));
+
+
+
+  const counterEl = document.getElementById("counter");
+  cosnt incBtn = document.getElementById("inc-btn");
+  const decBtn = document.getElementById("dec-btn");

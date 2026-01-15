@@ -1,26 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Estonia&family=Girassol&family=Kings&family=Oxanium:wght@200..800&family=Trade+Winds&display=swap');
 
 *{
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 20px;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 
 
 body{
-    background-color: black;
-    background-image: url("Archive/Nexus Background Wallpaper.png");
+    background-color: rgb(0, 0, 0);
+    /* background-image: url("Archive/Nexus Background Wallpaper.png"); */
 }
 
 p{
     font-family: "Oxanium", sans-system-ui;
     color: #f0e6f6;
-    text-align: justify;
-    margin: 50px;
+    text-align: left;
     font-size: 20px;
 }
+
+a{
+    color: #85cbe9;
+    text-decoration: none;
+}
+
 
 .navbar-container{
     background-color: transparent;
@@ -29,3 +33,109 @@ p{
     top: 0;
     z-index: 1000;
 }
+
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    font-size: 18px;
+    font-family: "Oxanium", sans-system-ui;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.footer{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    font-family: "Oxanium", sans-system-ui;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 100px);
+    margin: 50px;
+    border-radius: 12px;
+}
+
+/* Main sec  */
+.intro-section{
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    align-items: center;
+    justify-content: center;
+    height: auto;
+    padding: 50px;
+    text-align: center;
+}
+
+.heading{
+    font-family: "Trade Winds", sans-system-ui;
+    color: #f2da61;
+    text-align: left;
+    margin-top: 0;
+    font-size: 80px;
+    text-shadow: #91c9e1 2px 2px 4px;
+}
+
+.intro-text{
+    display: grid;
+    grid-template-columns: auto auto;
+    align-items: center;
+    justify-content: space-between;
+    margin: 50px;
+}
+
+.about-me-img{
+    display: block;
+    width: 200px;
+    height: auto;
+    border-radius: 12px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.introduction-para{
+    font-family: "Oxanium", sans-system-ui;
+    color: #85cbe9;
+    text-align: left;
+    font-size: 20px;
+    line-height: 1.6;
+    margin-top: 20px;
+}
+
+.newsection{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 2px;
+}
+
+.card{
+    background-color: rgba(0, 0, 0, 0.6);
+    border-radius: 12px;
+    padding: 20px;
+    margin: 10px;
+    text-align: center;
+}
+.card-title{
+    font-family: "Girassol", sans-system-ui;
+    color: #f2da61;
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+.card-description{
+    font-family: "Oxanium", sans-system-ui;
+    color: #85cbe9;
+    font-size: 18px;
+    line-height: 1.4;
+}
+
+/* apotd */

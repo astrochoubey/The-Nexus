@@ -1,26 +1,30 @@
 @import url('https://fonts.googleapis.com/css2?family=Caesar+Dressing&family=Estonia&family=Girassol&family=Kings&family=Oxanium:wght@200..800&family=Trade+Winds&display=swap');
 
 *{
-    margin-left: 30px;
-    margin-right: 30px;
-    margin-bottom: 20px;
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 
 
 body{
-    background-color: black;
-    background-image: url("Archive/Nexus Background Wallpaper.png");
+    background-color: rgb(0, 0, 0);
+    /* background-image: url("Archive/Nexus Background Wallpaper.png"); */
 }
 
 p{
     font-family: "Oxanium", sans-system-ui;
     color: #f0e6f6;
-    text-align: justify;
-    margin: 50px;
+    text-align: left;
     font-size: 20px;
 }
+
+a{
+    color: #85cbe9;
+    text-decoration: none;
+}
+
 
 .navbar-container{
     background-color: transparent;
@@ -28,4 +32,46 @@ p{
     position: sticky;
     top: 0;
     z-index: 1000;
+}
+
+
+.nav-links{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 15px;
+    font-size: 18px;
+    font-family: "Oxanium", sans-system-ui;
+    text-align: center;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+
+
+.footer{
+    display: flex;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 10px;
+    text-align: center;
+    font-size: 15px;
+    color: white;
+    font-family: "Oxanium", sans-system-ui;
+    position: relative;
+    bottom: 0;
+    width: calc(100% - 100px);
+    margin: 50px;
+    border-radius: 12px;
+}
+
+
+/* Main section styles */
+
+section{
+    margin: 50px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
 }
