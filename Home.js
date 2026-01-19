@@ -1,5 +1,7 @@
-const API_KEY = "ecRi7V9yMIkD0aznfrZ4BhXxUM6auiftktId5Yge"; // or DEMO_KEY
-const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
+const API_KEY = "sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f
+"; // or DEMO_KEY
+const url = `https://api.nasa.gov/planetary/apod?api_key=${sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f
+}`;
 
 fetch(url)
   .then(res => res.json())
