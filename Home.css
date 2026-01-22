@@ -10,7 +10,8 @@
 
 body{
     background-color: rgb(0, 0, 0);
-    /* background-image: url("Archive/Nexus Background Wallpaper.png"); */
+    background-image: url("Archive/pexels-francesco-ungaro-998641.jpg");
+
 }
 
 p{
@@ -122,7 +123,7 @@ a{
 } */
 
 /* apotd */
-#apogid-img {
+#apod-img{
   width: 100%;
   border-radius: 12px;
   /* margin: 15px; */

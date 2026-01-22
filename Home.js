@@ -1,7 +1,5 @@
-const API_KEY = "sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f
-"; // or DEMO_KEY
-const url = `https://api.nasa.gov/planetary/apod?api_key=${sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f
-}`;
+const API_KEY = "sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f"; // or DEMO_KEY
+const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
 
 fetch(url)
   .then(res => res.json())
@@ -27,5 +25,5 @@ fetch(url)
 
 
   const counterEl = document.getElementById("counter");
-  cosnt incBtn = document.getElementById("inc-btn");
+  const incBtn = document.getElementById("inc-btn");
   const decBtn = document.getElementById("dec-btn");
