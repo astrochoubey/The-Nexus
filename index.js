@@ -1,29 +1,46 @@
-const API_KEY = "sKUX2KPZCcQTdfgQikLa8AODxSQHol3gNXoVpz1f"; // or DEMO_KEY
-const url = `https://api.nasa.gov/planetary/apod?api_key=${API_KEY}`;
+function skipIntro() {
+  const overlay = document.getElementById("crawl-overlay");
+  const mainSite = document.getElementById("main-site");
 
-fetch(url)
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("apod-title").textContent = data.title;
-    document.getElementById("apod-desc").textContent = data.explanation;
+  overlay.style.opacity = "0";
+  setTimeout(() => {
+    overlay.style.display = "none";
+    mainSite.classList.add("visible");
+    document.body.style.overflow = "auto";
+  }, 1500);
+}
 
-    const img = document.getElementById("apod-img");
-    const video = document.getElementById("apod-video");
+// Auto-skip or transition after animation
+document.addEventListener("DOMContentLoaded", () => {
+  // Prevent scrolling during intro
+  document.body.style.overflow = "hidden";
 
-    if (data.media_type === "image") {
-      img.src = data.url;
-      img.style.display = "block";
-      video.style.display = "none";
-    } else if (data.media_type === "video") {
-      video.src = data.url;
-      video.style.display = "block";
-      img.style.display = "none";
+  // Set a timeout to automatically fade out the intro after 45 seconds (crawl duration)
+  // Or users can click skip.
+  setTimeout(() => {
+    const overlay = document.getElementById("crawl-overlay");
+    if (overlay.style.display !== "none") {
+      skipIntro();
     }
-  })
-  .catch(err => console.error(err));
+  }, 45000);
+});
 
+// Adding a little interactive tilt to cards for that premium feel
+document.querySelectorAll(".card").forEach((card) => {
+  card.addEventListener("mousemove", (e) => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 20;
+    const rotateY = (centerX - x) / 20;
 
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateY(-5px)`;
+  });
 
-  const counterEl = document.getElementById("counter");
-  const incBtn = document.getElementById("inc-btn");
-  const decBtn = document.getElementById("dec-btn");
+  card.addEventListener("mouseleave", () => {
+    card.style.transform =
+      "perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0)";
+  });
+});

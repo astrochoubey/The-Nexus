@@ -1,0 +1,352 @@
+@font-face {
+    font-family: 'StarJedi';
+    src: url('Fonts/star_jedi/starjedi/Starjedi.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Pixel';
+    src: url('Fonts/return-to-castle/return.ttf') format('truetype');
+}
+
+:root {
+    --sw-yellow: #FFE81F;
+    --bg-dark: #000;
+    --card-bg: rgba(20, 20, 25, 0.85);
+    --border-glow: rgba(255, 232, 31, 0.2);
+    --accent-color: #00f2ff;
+    --text-main: #e0e0e0;
+    --glass-blur: blur(12px);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Pixel', 'Courier New', Courier, monospace;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    overflow-x: hidden;
+    min-height: 100vh;
+}
+
+/* Background Image Overlay */
+.bg-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: url('nexus_background_1769523422848.png') no-repeat center center fixed;
+    background-size: cover;
+    z-index: -2;
+    filter: brightness(0.6) saturate(1.2);
+}
+
+.bg-stars {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: transparent url('https://s3-us-west-2.amazonaws.com/s.cdpn.io/123163/stars.png') repeat top center;
+    z-index: -1;
+    opacity: 0.5;
+}
+
+/* Star Wars Intro Crawl */
+#crawl-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: black;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 1.5s ease;
+}
+
+.crawl-container {
+    width: 100%;
+    max-width: 800px;
+    height: 60%;
+    color: var(--sw-yellow);
+    font-size: 200%;
+    font-weight: 600;
+    letter-spacing: 2px;
+    line-height: normal;
+    text-align: justify;
+    position: relative;
+    pointer-events: none;
+    transform-origin: 50% 100%;
+    transform: perspective(300px) rotateX(25deg);
+}
+
+.crawl-content {
+    position: absolute;
+    top: 100%;
+    animation: crawl 40s linear forwards;
+}
+
+.crawl-title {
+    text-align: center;
+    font-family: 'StarJedi', sans-serif;
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+@keyframes crawl {
+    0% {
+        top: 100%;
+        opacity: 1;
+    }
+    100% {
+        top: -150%;
+        opacity: 0;
+    }
+}
+
+.intro-blue-text {
+    color: #4bd5ee;
+    font-size: 1.8rem;
+    font-family: sans-serif;
+    margin-bottom: 2rem;
+    opacity: 0;
+    animation: fadeIntro 4s ease-in-out forwards;
+}
+
+@keyframes fadeIntro {
+    0% { opacity: 0; }
+    20% { opacity: 1; }
+    80% { opacity: 1; }
+    100% { opacity: 0; display: none; }
+}
+
+.skip-btn {
+    position: absolute;
+    bottom: 40px;
+    right: 40px;
+    background: transparent;
+    border: 2px solid var(--sw-yellow);
+    color: var(--sw-yellow);
+    padding: 10px 20px;
+    font-family: 'StarJedi', sans-serif;
+    cursor: pointer;
+    z-index: 1001;
+    transition: all 0.3s ease;
+    border-radius: 5px;
+}
+
+.skip-btn:hover {
+    background: var(--sw-yellow);
+    color: black;
+    box-shadow: 0 0 15px var(--sw-yellow);
+}
+
+/* Main Site Content */
+.site-wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    opacity: 0;
+    transition: opacity 2s ease;
+}
+
+.site-wrapper.visible {
+    opacity: 1;
+}
+
+/* Navigation Bar */
+header {
+    margin-bottom: 3rem;
+}
+
+.navbar {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-glow);
+    border-radius: 50px;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.5);
+}
+
+.logo {
+    font-family: 'StarJedi', sans-serif;
+    color: var(--sw-yellow);
+    font-size: 1.5rem;
+    text-decoration: none;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+    gap: 2rem;
+}
+
+.nav-links a {
+    color: var(--text-main);
+    text-decoration: none;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    transition: color 0.3s;
+}
+
+.nav-links a:hover {
+    color: var(--sw-yellow);
+}
+
+/* Grid Layout (Early 2000s Indie) */
+.main-grid {
+    display: grid;
+    grid-template-columns: 300px 1fr 300px;
+    gap: 2rem;
+    align-items: start;
+}
+
+@media (max-width: 1024px) {
+    .main-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* Bento Cards */
+.card {
+    background: var(--card-bg);
+    backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-glow);
+    border-radius: 20px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    border-color: var(--sw-yellow);
+}
+
+.card-title {
+    font-family: 'StarJedi', sans-serif;
+    color: var(--sw-yellow);
+    margin-bottom: 1.5rem;
+    font-size: 1.2rem;
+    border-bottom: 1px solid var(--border-glow);
+    padding-bottom: 0.5rem;
+}
+
+/* Profile Section */
+.profile-section {
+    text-align: center;
+}
+
+.profile-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    border: 3px solid var(--sw-yellow);
+    margin-bottom: 1rem;
+    object-fit: cover;
+}
+
+.status-tag {
+    display: inline-block;
+    background: var(--sw-yellow);
+    color: black;
+    padding: 4px 12px;
+    border-radius: 12px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+/* Research Preview */
+.research-card {
+    position: relative;
+    overflow: hidden;
+}
+
+.paper-title {
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+}
+
+.paper-snippet {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    margin-bottom: 1.5rem;
+    color: #ccc;
+}
+
+.read-more {
+    display: inline-block;
+    padding: 8px 20px;
+    border: 1px solid var(--sw-yellow);
+    color: var(--sw-yellow);
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    transition: 0.3s;
+}
+
+.read-more:hover {
+    background: var(--sw-yellow);
+    color: black;
+}
+
+/* Spotify Wrapper */
+.spotify-card {
+    padding: 0;
+    overflow: hidden;
+}
+
+/* Footer */
+footer {
+    border-top: 1px solid var(--border-glow);
+    margin-top: 4rem;
+    padding: 2rem 0;
+    text-align: center;
+    font-size: 0.8rem;
+    color: #666;
+}
+
+footer .footer-links {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+}
+
+footer a {
+    color: #888;
+    text-decoration: none;
+}
+
+footer a:hover {
+    color: var(--sw-yellow);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg-dark);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--sw-yellow);
+    border-radius: 10px;
+}

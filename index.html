@@ -1,38 +1,122 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home</title>
-    <link rel="stylesheet" href="index.css">
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
-
-</head>
-<body>
-    <header>
-        <div class ="navbar-container">
-            <nav class ="navbar"> 
-                <ul class = "nav-links">
-                    <li><a href ="Home.html" target="_blank">Home</a></li>
-                    <li><a href ="About.html" target="_blank">About</a></li>
-                    <li><a href ="Portfolio.html" target="_self">Portfolio</a></li>
-                    <li><a href ="Research.html">Research</a></li>
-                    <li><a href ="TheList.html">The List</a></li>
-                    <li><a href ="Notebook.html">Notebook</a></li>
-                </ul>
-            </nav>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>The Nexus | Home</title>
+        <link rel="stylesheet" href="index.css">
+        <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌌</text></svg>">
+    </head>
+    <body>
+        <!-- Background layers -->
+        <div class="bg-overlay"></div>
+        <div class="bg-stars"></div>
+    
+        <!-- Star Wars Intro Crawl -->
+        <div id="crawl-overlay">
+            <div class="intro-blue-text">A long time ago in a physics lab far, far away....</div>
+            <button class="skip-btn" onclick="skipIntro()">SKIP INTRO</button>
+            <div class="crawl-container">
+                <div class="crawl-content">
+                    <div class="crawl-title">Episode IV<br>THE NEXUS RELOADED</div>
+                    <p>It is a period of academic war. Rebel researchers, striking from a hidden laboratory, have won their first victory against the evil Galactic Journal of Obscurity.</p>
+                    <br>
+                    <p>During the battle, spies managed to steal secret plans to the University's ultimate weapon, THE PAYWALL, an armored pay-per-view system with enough power to destroy an entire thesis.</p>
+                    <br>
+                    <p>Pursued by the Empire's sinister reviewers, Dr. Nexus races home aboard their workstation, custodian of the stolen data that can save their students and restore freedom to the open-access galaxy....</p>
+                    <br>
+                    <p>(Enter the site to reveal the truth...)</p>
+                </div>
+            </div>
         </div>
-    </header>
-
-    <main>
+    
+        <!-- Main Content -->
+        <div class="site-wrapper" id="main-site">
+            <header>
+                <nav class="navbar">
+                    <a href="#" class="logo">THE NEXUS</a>
+                    <ul class="nav-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="About.html">About</a></li>
+                        <li><a href="Research.html">Research</a></li>
+                        <li><a href="TheList.html">The List</a></li>
+                        <li><a href="Notebook.html">Notebook</a></li>
+                    </ul>
+                </nav>
+            </header>
         
-    </main>
-
-    <footer class="footer">
-        <p class="footer-text">© 2024 The Nexus. All rights reserved.</p>
-    </footer>
-    <script src="index.js"></script>
-
-</body>
+            <main class="main-grid">
+                <!-- Left Column: Intro/Profile -->
+                <section class="left-col">
+                    <div class="card profile-section">
+                        <div class="card-title">Initiate</div>
+                        <img src="https://api.dicebear.com/7.x/pixel-art/svg?seed=Nexus" alt="Profile" class="profile-img">
+                        <div class="status-tag">STATUS: ONLINE</div>
+                        <p style="font-size: 0.9rem; margin-bottom: 1rem;">Welcome to my digital corner of the galaxy. I research high-energy physics, time dilation, and the secrets of the Force (mathematically speaking).</p>
+                        <div style="font-size: 0.7rem; color: #888; border-top: 1px solid #333; padding-top: 0.5rem;">
+                            [Location: Core Worlds]<br>
+                            [Interests: Quantum Gravity]
+                        </div>
+                    </div>
+                
+                    <div class="card">
+                        <div class="card-title">Bulletins</div>
+                        <ul style="list-style: none; font-size: 0.8rem; line-height: 1.6;">
+                            <li>🚀 01.27 - Site migration complete.</li>
+                            <li>🔭 01.20 - New paper draft finished.</li>
+                            <li>☕ 01.15 - Consumed 400 liters of caf.</li>
+                        </ul>
+                    </div>
+                </section>
+            
+                <!-- Middle Column: Main Feed -->
+                <section class="mid-col">
+                    <div class="card research-card">
+                        <div class="card-title">Latest Research</div>
+                        <h2 class="paper-title">Quantum Entanglement in Supermassive Black Hole Horizons</h2>
+                        <p class="paper-snippet">In this paper, we explore the holographic principle as it applies to the Sagittarius A* event horizon. By utilizing the Nexus Framework, we have identified potential leakage patterns and information recovery protocols that challenge the existing Hawking Radiation paradox...</p>
+                        <a href="Research.html" class="read-more">READ MORE</a>
+                    </div>
+                
+                    <div class="card">
+                        <div class="card-title">Laboratory Feed</div>
+                        <p style="font-style: italic; color: #aaa;">"The Force is what gives a physicist his power. It's an energy field created by all living things. It surrounds us and penetrates us; it binds the galaxy together."</p>
+                        <div style="margin-top: 2rem; border-top: 1px solid #333; padding-top: 1rem;">
+                            <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExNHJobm9xN2RyeGZ5ZnZ4ZXJ4ZXJ4ZXJ4ZXJ4ZXJ4ZXJ4ZXJ4ZXJ4JmVwPXYxX2ludGVybmFsX2dpZl9ieV9pZCZjdD1n/3o7TKv6Mg3p7pAb6Y8/giphy.gif" alt="Stars Animation" style="width: 100%; border-radius: 10px;">
+                        </div>
+                    </div>
+                </section>
+            
+                <!-- Right Column: Widgets -->
+                <section class="right-col">
+                    <div class="card spotify-card">
+                        <div class="card-title" style="padding: 1rem 1rem 0 1rem;">Subspace Radio</div>
+                        <iframe style="border-radius:12px" src="https://open.spotify.com/embed/playlist/37i9dQZF1DX4XpBof83p6S?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+                    </div>
+                
+                    <div class="card">
+                        <div class="card-title">Stickers</div>
+                        <div style="display: flex; flex-wrap: wrap; gap: 10px; justify-content: center;">
+                            <span style="font-size: 2rem;">🛸</span>
+                            <span style="font-size: 2rem;">⚡</span>
+                            <span style="font-size: 2rem;">🪐</span>
+                            <span style="font-size: 2rem;">🌌</span>
+                            <span style="font-size: 2rem;">🧪</span>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        
+            <footer class="footer">
+                <p>© 2026 THE NEXUS. TRANSMITTED FROM THE OUTER RIM.</p>
+                <div class="footer-links">
+                    <a href="#">Holonet</a>
+                    <a href="#">Archive</a>
+                    <a href="#">Contact</a>
+                </div>
+            </footer>
+        </div>
+    
+        <script src="index.js"></script>
+    </body>
 </html>
-
