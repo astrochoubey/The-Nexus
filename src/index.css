@@ -1,0 +1,413 @@
+@import "tailwindcss";
+
+:root {
+  --paper: #E4D6AE;
+  --paper-light: #F0E6CB;
+  --ink: #3A2F33;
+  --space-black: #0A0C10;
+  --deep-navy: #0F1B3D;
+  --star-blue: #1E3FA0;
+  --title-blue: #5FA3E0;
+  --peach: #F2B48E;
+  --nasa-orange: #E8602B;
+  --amber: #F5A623;
+  --mustard: #E9B93A;
+  --charcoal: #3B3B3D;
+  --charcoal-heather: #2B2C2E;
+
+  /* Folder tones */
+  --olive: #6E6B4E;
+  --taupe: #A89A82;
+  --slate: #7A8497;
+  --caramel: #A8703A;
+  --sage: #8C9275;
+
+  /* Fonts */
+  --font-syncopate: 'Syncopate', sans-serif;
+  --font-michroma: 'Michroma', sans-serif;
+  --font-righteous: 'Righteous', cursive;
+  --font-lilita: 'Lilita One', cursive;
+  --font-inter-tight: 'Inter Tight', sans-serif;
+  --font-space-mono: 'Space Mono', monospace;
+  --font-caveat: 'Caveat', cursive;
+  --font-cormorant: 'Cormorant Garamond', serif;
+  --font-eb-garamond: 'EB Garamond', serif;
+
+  /* Grid overlay opacity */
+  --grid-line: rgba(58, 47, 51, 0.15);
+  --grid-crosshair: rgba(58, 47, 51, 0.35);
+}
+
+/* Dark Academia tokens */
+.theme-dark-academia {
+  --vellum: #EADFC2;
+  --vellum-aged: #CDB88A;
+  --vellum-dark: #C0A978;
+  --ink: #2A1B12;
+  --oxblood: #5E1B1E;
+  --oxblood-light: #7A262A;
+  --forest: #1E2B23;
+  --forest-dark: #141D17;
+  --brass: #A9823F;
+  --brass-light: #D4A853;
+  --candlelight: rgba(255, 235, 185, 0.08);
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  background-color: var(--space-black);
+  color: var(--ink);
+  font-family: var(--font-space-mono);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  background-color: var(--space-black);
+}
+
+/* 70s Title Card Typography (Blue fill, peach offset shadow, dark outline) */
+.title-card-70s {
+  font-family: var(--font-righteous);
+  color: var(--title-blue);
+  text-shadow: 
+    -1px -1px 0 #0A0C10,  
+     1px -1px 0 #0A0C10,
+    -1px  1px 0 #0A0C10,
+     1px  1px 0 #0A0C10,
+     3px  3px 0 var(--peach),
+     4px  4px 0 #0A0C10;
+  letter-spacing: 0.04em;
+}
+
+.title-card-amber {
+  font-family: var(--font-lilita);
+  color: var(--amber);
+  text-shadow:
+    -2px -2px 0 #0A0C10,
+     2px -2px 0 #0A0C10,
+    -2px  2px 0 #0A0C10,
+     2px  2px 0 #0A0C10,
+     4px  4px 0 var(--nasa-orange),
+     6px  6px 0 #0F1B3D;
+  letter-spacing: 0.05em;
+}
+
+/* Wide display caps */
+.font-display-wide {
+  font-family: var(--font-syncopate);
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+}
+
+/* Editorial Headlines */
+.font-editorial {
+  font-family: var(--font-inter-tight);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+}
+
+/* Monospace Body */
+.font-mono-data {
+  font-family: var(--font-space-mono);
+}
+
+/* Handwritten Notes */
+.font-handwritten {
+  font-family: var(--font-caveat);
+}
+
+/* Dark Academia Serif */
+.font-academia-serif {
+  font-family: var(--font-cormorant);
+}
+
+.font-academia-body {
+  font-family: var(--font-eb-garamond);
+}
+
+/* Chamfered Box HUD Utilities */
+.chamfer-box {
+  clip-path: polygon(
+    14px 0, 
+    calc(100% - 14px) 0, 
+    100% 14px, 
+    100% calc(100% - 14px), 
+    calc(100% - 14px) 100%, 
+    14px 100%, 
+    0 calc(100% - 14px), 
+    0 14px
+  );
+}
+
+.chamfer-tab {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 16px) 0,
+    100% 16px,
+    100% 100%,
+    0 100%
+  );
+}
+
+.chamfer-card {
+  clip-path: polygon(
+    0 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% 100%,
+    18px 100%,
+    0 calc(100% - 18px)
+  );
+}
+
+/* Retro HUD Outline Box */
+.hud-border {
+  border: 1px solid rgba(228, 214, 174, 0.3);
+  position: relative;
+}
+
+.hud-border::before {
+  content: "+";
+  position: absolute;
+  top: -9px;
+  left: -5px;
+  font-size: 11px;
+  font-family: var(--font-space-mono);
+  color: var(--nasa-orange);
+  line-height: 1;
+}
+
+.hud-border::after {
+  content: "+";
+  position: absolute;
+  bottom: -9px;
+  right: -5px;
+  font-size: 11px;
+  font-family: var(--font-space-mono);
+  color: var(--nasa-orange);
+  line-height: 1;
+}
+
+/* Mission Control Button Style */
+.retro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.5rem 1.1rem;
+  font-family: var(--font-space-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border: 1px solid var(--ink);
+  background-color: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  transition: all 0.18s ease-in-out;
+  position: relative;
+  text-decoration: none;
+}
+
+.retro-btn:hover {
+  background-color: var(--ink);
+  color: var(--paper-light);
+  transform: translateY(-1px);
+  box-shadow: 2px 2px 0 var(--nasa-orange);
+}
+
+.retro-btn-space {
+  border-color: var(--paper);
+  color: var(--paper);
+}
+
+.retro-btn-space:hover {
+  background-color: var(--paper);
+  color: var(--space-black);
+  box-shadow: 2px 2px 0 var(--nasa-orange);
+}
+
+/* Small square icon box for buttons */
+.btn-icon-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.15rem;
+  height: 1.15rem;
+  border: 1px solid currentColor;
+  font-size: 0.65rem;
+}
+
+/* Hairline Grid Overlay */
+.hairline-grid {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+}
+
+.hairline-grid-dark {
+  background-size: 40px 40px;
+  background-image: 
+    linear-gradient(to right, rgba(228, 214, 174, 0.07) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(228, 214, 174, 0.07) 1px, transparent 1px);
+}
+
+/* Archival Paper Texture */
+.paper-texture {
+  background-color: var(--paper);
+  background-image: 
+    radial-gradient(rgba(58, 47, 51, 0.04) 1px, transparent 0),
+    radial-gradient(rgba(58, 47, 51, 0.02) 1px, transparent 0);
+  background-size: 8px 8px, 16px 16px;
+  background-position: 0 0, 4px 4px;
+}
+
+/* Halftone Screen Filter Effect */
+.halftone-screen {
+  background-image: radial-gradient(circle, currentColor 1px, transparent 1.5px);
+  background-size: 4px 4px;
+}
+
+/* Taped Polaroid Effect */
+.taped-polaroid {
+  position: relative;
+  background: #FFFDF9;
+  box-shadow: 
+    0 1px 3px rgba(0,0,0,0.12),
+    0 8px 24px rgba(0,0,0,0.18);
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.25s ease;
+}
+
+.taped-polaroid:hover {
+  transform: translateY(-6px) rotate(0deg) scale(1.02) !important;
+  box-shadow: 
+    0 12px 32px rgba(0,0,0,0.28),
+    0 2px 6px rgba(0,0,0,0.15);
+  z-index: 20;
+}
+
+/* Masking Tape Strips */
+.tape-strip {
+  position: absolute;
+  width: 72px;
+  height: 22px;
+  background-color: rgba(235, 222, 186, 0.78);
+  border: 1px solid rgba(180, 165, 130, 0.4);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+  backdrop-filter: blur(1px);
+  z-index: 10;
+  pointer-events: none;
+}
+
+.tape-top {
+  top: -11px;
+  left: 50%;
+  transform: translateX(-50%) rotate(-1deg);
+}
+
+.tape-top-left {
+  top: -8px;
+  left: -15px;
+  transform: rotate(-35deg);
+}
+
+.tape-top-right {
+  top: -8px;
+  right: -15px;
+  transform: rotate(35deg);
+}
+
+/* Torn sticker badge */
+.sticker-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.65rem;
+  background-color: #FFFDF8;
+  color: var(--ink);
+  font-family: var(--font-space-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  border: 1px dashed rgba(58, 47, 51, 0.5);
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.12);
+  transform: rotate(calc(var(--rot, 0) * 1deg));
+  transition: transform 0.15s ease;
+}
+
+.sticker-tag:hover {
+  transform: scale(1.08) rotate(0deg);
+  background-color: var(--mustard);
+}
+
+/* Vintage Color Grade Filters */
+.vintage-grade {
+  filter: sepia(0.35) contrast(1.15) brightness(0.95) saturate(0.85);
+  transition: filter 0.3s ease;
+}
+
+.vintage-grade:hover {
+  filter: sepia(0.15) contrast(1.08) brightness(1.02) saturate(1.05);
+}
+
+.raw-grade {
+  filter: none !important;
+}
+
+/* Ink Stamp Styles */
+.ink-stamp {
+  display: inline-block;
+  padding: 0.2rem 0.55rem;
+  border: 2px solid currentColor;
+  text-transform: uppercase;
+  font-family: var(--font-space-mono);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  transform: rotate(-3deg);
+  mask-image: radial-gradient(circle at center, black 85%, transparent 100%);
+}
+
+.ink-stamp-orange {
+  color: var(--nasa-orange);
+  border-color: var(--nasa-orange);
+}
+
+.ink-stamp-oxblood {
+  color: var(--oxblood);
+  border-color: var(--oxblood);
+  font-family: var(--font-cormorant);
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+}
+
+/* Wax Seal Motif */
+.wax-seal {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, #8B252A 0%, #5E1B1E 60%, #380E10 100%);
+  box-shadow: 
+    0 2px 6px rgba(0,0,0,0.4),
+    inset 0 1px 2px rgba(255,255,255,0.25),
+    inset 0 -2px 4px rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #EADFC2;
+  font-family: var(--font-cormorant);
+  font-weight: 700;
+  font-size: 1.15rem;
+  border: 1px solid #4A1316;
+}
+
+/* Reduced Motion Override */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
