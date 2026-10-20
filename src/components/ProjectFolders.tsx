@@ -1,130 +1,170 @@
 import React, { useState, useEffect } from "react";
 import { projectsData, Project } from "../data/projects";
-import { ProjectFigureSVG, RetroBarcode, Crosshair } from "./RetroGraphics";
-import { ExternalLink, X } from "lucide-react";
+import { ProjectFigureSVG, RetroBarcode, Crosshair, DotMatrix } from "./RetroGraphics";
+import { ExternalLink, X, ArrowUpRight, FolderOpen } from "lucide-react";
 
 export default function ProjectFolders() {
-  // Deep-link initial state via window.location.hash
-  const [activeSlug, setActiveSlug] = useState<string | null>(null);
+  const [activeProject, setActiveProject] = useState<Project | null>(null);
 
-  useEffect(() => {
-    const handleHashChange = () => {
-      const hash = window.location.hash.replace("#", "");
-      if (hash) {
-        const found = projectsData.find((p) => p.slug === hash || p.codeLabel.toLowerCase().includes(hash));
-        if (found) {
-          setActiveSlug(found.slug);
-        }
-      }
-    };
-
-    handleHashChange();
-    window.addEventListener("hashchange", handleHashChange);
-    return () => window.removeEventListener("hashchange", handleHashChange);
-  }, []);
-
-  // Keyboard navigation & ESC to close
+  // Close with Escape key
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" && activeSlug) {
-        setActiveSlug(null);
+      if (e.key === "Escape") {
+        setActiveProject(null);
       }
     };
     window.addEventListener("keydown", handleKeyDown);
     return () => window.removeEventListener("keydown", handleKeyDown);
-  }, [activeSlug]);
+  }, []);
 
-  const toggleFolder = (slug: string) => {
-    if (activeSlug === slug) {
-      setActiveSlug(null);
-      // update hash cleanly
-      history.replaceState(null, "", window.location.pathname + window.location.search);
+  const handleSelectFolder = (project: Project) => {
+    if (activeProject?.slug === project.slug) {
+      setActiveProject(null);
     } else {
-      setActiveSlug(slug);
-      window.location.hash = slug;
+      setActiveProject(project);
     }
   };
 
+  // Custom folder colors matching the exact Grid Daily poster reference
+  const folderStyles = [
+    {
+      // 01: Olive/Sage
+      bg: "#7E8474",
+      text: "#FFFFFF",
+      tabText: "#F0E6CB",
+      accent: "#E9B93A",
+      border: "rgba(255,255,255,0.2)"
+    },
+    {
+      // 02: Warm Parchment / Cream
+      bg: "#EBE5D3",
+      text: "#2A2521",
+      tabText: "#3A2F33",
+      accent: "#E8602B",
+      border: "rgba(58,47,51,0.25)"
+    },
+    {
+      // 03: Slate Blue-Gray
+      bg: "#64778C",
+      text: "#FFFFFF",
+      tabText: "#F0E6CB",
+      accent: "#5FA3E0",
+      border: "rgba(255,255,255,0.2)"
+    },
+    {
+      // 04: Caramel Ochre Leather
+      bg: "#9A6034",
+      text: "#FFFFFF",
+      tabText: "#F0E6CB",
+      accent: "#F5A623",
+      border: "rgba(255,255,255,0.2)"
+    },
+    {
+      // 05: Charcoal Black with Gold Chamfer
+      bg: "#18191E",
+      text: "#F0E6CB",
+      tabText: "#E5B842",
+      accent: "#E5B842",
+      border: "rgba(229,184,66,0.4)"
+    },
+    {
+      // 06: Dark Forest Olive
+      bg: "#2E362C",
+      text: "#FFFFFF",
+      tabText: "#A8D49E",
+      accent: "#22C55E",
+      border: "rgba(255,255,255,0.2)"
+    }
+  ];
+
   return (
-    <div className="w-full">
-      {/* DESKTOP ACCORDION: Stacked vertical folders with staggered notched tabs */}
-      <div className="hidden lg:flex items-stretch min-h-[640px] gap-2 p-4 bg-[#14161D] border-2 border-[#E4D6AE]/30 rounded-xs shadow-2xl relative overflow-hidden">
-        {/* Subtle background registration markings */}
-        <div className="absolute top-2 right-4 text-[10px] font-mono text-[#A89A82]/40 select-none">
-          ARCHIVE_INDEX // PHYSICAL_SERIES_01-06
-        </div>
+    <div className="w-full space-y-6">
+      {/* =========================================================================
+          DESKTOP: COMPACT PHYSICAL FOLDER RACK WITH STEPPED NOTCHED TABS
+          (Faithfully modeled on GRID DAILY_01-05 reference poster)
+      ========================================================================= */}
+      <div className="hidden md:block w-full">
+        {/* Shorter, compact rack container (height ~460px) */}
+        <div className="relative h-[460px] bg-[#0A0C10] p-4 border-2 border-[#E4D6AE]/30 rounded-xs shadow-2xl overflow-hidden flex items-stretch gap-2.5">
+          {/* Background Archive Markings */}
+          <div className="absolute top-2 right-4 text-[9px] font-mono text-[#A89A82]/50 tracking-widest select-none pointer-events-none">
+            GRID DAILY_01-06 // PHYSICAL ARCHIVE FOLDER SYSTEM
+          </div>
 
-        {projectsData.map((project, index) => {
-          const isExpanded = activeSlug === project.slug;
+          {projectsData.map((project, index) => {
+            const style = folderStyles[index % folderStyles.length];
+            const isSelected = activeProject?.slug === project.slug;
+            // Stepped tab positions from top to bottom (staggered down like in the reference)
+            const tabTopPos = 20 + index * 62;
 
-          return (
-            <div
-              key={project.slug}
-              className={`transition-all duration-400 ease-out flex flex-col relative rounded-t-sm shadow-xl ${
-                isExpanded ? "flex-[5] z-30" : "flex-1 hover:-translate-y-3 cursor-pointer z-10"
-              }`}
-              style={{
-                backgroundColor: project.color,
-                boxShadow: isExpanded
-                  ? "0 20px 40px rgba(0,0,0,0.6), inset 0 1px 0 rgba(255,255,255,0.2)"
-                  : "0 10px 20px rgba(0,0,0,0.35)"
-              }}
-            >
-              {/* Notched Tab on Top (Staggered height / offset stepping down left to right) */}
+            return (
               <div
-                className="w-full relative flex items-center justify-between px-3 py-2 text-white font-mono select-none"
+                key={project.slug}
+                onClick={() => handleSelectFolder(project)}
+                className={`group relative flex-1 h-full cursor-pointer transition-all duration-300 select-none flex flex-col justify-between p-3.5 rounded-t-xs shadow-lg ${
+                  isSelected
+                    ? "ring-2 ring-[#E8602B] -translate-y-2.5 z-30 brightness-105"
+                    : "hover:-translate-y-2 hover:shadow-2xl hover:brightness-105 z-10"
+                }`}
                 style={{
-                  paddingTop: `${project.tabOffset}px`,
-                  backgroundColor: "rgba(0,0,0,0.18)",
-                  borderBottom: "1px solid rgba(255,255,255,0.15)"
+                  backgroundColor: style.bg,
+                  color: style.text,
+                  borderTop: `1px solid ${style.border}`,
+                  borderLeft: `1px solid ${style.border}`,
+                  borderRight: `1px solid ${style.border}`,
+                  boxShadow: isSelected
+                    ? "0 18px 36px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.25)"
+                    : "0 8px 16px rgba(0,0,0,0.35)"
                 }}
               >
-                <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-bold tracking-widest text-[#E9B93A]">
+                {/* -------------------------------------------------------------
+                    STEPPED NOTCHED SIDE TAB (Like the reference image)
+                ------------------------------------------------------------- */}
+                <div
+                  className="absolute -right-3 w-7 h-16 z-20 flex items-center justify-center transition-transform group-hover:scale-105 shadow-md"
+                  style={{
+                    top: `${tabTopPos}px`,
+                    backgroundColor: style.bg,
+                    borderTop: `1px solid ${style.border}`,
+                    borderRight: `2px solid ${style.accent}`,
+                    borderBottom: `1px solid ${style.border}`,
+                    clipPath: "polygon(0 0, 75% 0, 100% 12px, 100% calc(100% - 12px), 75% 100%, 0 100%)"
+                  }}
+                  title={`${project.codeLabel} ${project.tabTitle}`}
+                >
+                  <span
+                    className="text-[9px] font-mono font-bold tracking-widest whitespace-nowrap"
+                    style={{
+                      color: style.tabText,
+                      writingMode: "vertical-rl",
+                      transform: "rotate(180deg)"
+                    }}
+                  >
                     {project.codeLabel}
                   </span>
-                  <span className="text-[10px] tracking-wider uppercase opacity-90 truncate max-w-[120px]">
+                </div>
+
+                {/* Top of Folder Strip */}
+                <div className="flex flex-col gap-1 border-b pb-2" style={{ borderColor: style.border }}>
+                  <div className="flex items-center justify-between text-[10px] font-mono">
+                    <span className="font-bold tracking-wider" style={{ color: style.accent }}>
+                      {project.codeLabel}
+                    </span>
+                    <span
+                      className={`w-2 h-2 rounded-full ${
+                        project.status === "ACTIVE" ? "bg-amber-400 animate-pulse" : "bg-emerald-400"
+                      }`}
+                    />
+                  </div>
+                  <span className="text-[10px] font-mono font-bold uppercase tracking-wider truncate opacity-90">
                     {project.tabTitle}
                   </span>
                 </div>
 
-                <div className="flex items-center gap-1">
-                  <span
-                    className={`w-2 h-2 rounded-full ${
-                      project.status === "ACTIVE" ? "bg-amber-400 animate-pulse" : "bg-emerald-400"
-                    }`}
-                  />
-                  {isExpanded && (
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setActiveSlug(null);
-                      }}
-                      className="p-1 hover:bg-black/30 rounded text-white/80 hover:text-white"
-                      aria-label="Close folder"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-              </div>
-
-              {/* COLLAPSED VIEW: Rotated vertical typography on strip face */}
-              {!isExpanded ? (
-                <button
-                  type="button"
-                  aria-expanded="false"
-                  onClick={() => toggleFolder(project.slug)}
-                  className="w-full flex-1 flex flex-col justify-between items-center py-6 focus:outline-none focus:ring-2 focus:ring-amber-400 text-left"
-                >
-                  {/* Top stamp */}
-                  <div className="text-[9px] font-mono tracking-widest text-white/60 writing-mode-vertical">
-                    ARCHIVE LOG // {project.status}
-                  </div>
-
-                  {/* Vertical title */}
+                {/* Middle: Bold Vertical Typography Running Along Folder Spine */}
+                <div className="flex-1 flex items-center justify-center py-4 overflow-hidden">
                   <div
-                    className="font-display-wide text-sm font-bold tracking-widest text-white/95 whitespace-nowrap"
+                    className="font-display-wide text-xs sm:text-sm font-black tracking-[0.22em] uppercase whitespace-nowrap opacity-95 group-hover:scale-105 transition-transform"
                     style={{
                       writingMode: "vertical-rl",
                       transform: "rotate(180deg)"
@@ -132,228 +172,213 @@ export default function ProjectFolders() {
                   >
                     {project.title}
                   </div>
+                </div>
 
-                  {/* Bottom barcode & notch */}
-                  <div className="flex flex-col items-center gap-2 opacity-75">
-                    <div className="w-1.5 h-1.5 bg-amber-400 rounded-full" />
-                    <span className="text-[8px] font-mono text-white/50">{`#0${index + 1}`}</span>
+                {/* Bottom of Folder Strip */}
+                <div className="border-t pt-2 space-y-1 text-center" style={{ borderColor: style.border }}>
+                  <div className="text-[9px] font-mono tracking-widest opacity-75">
+                    {project.year} // FILE_0{index + 1}
                   </div>
-                </button>
-              ) : (
-                /* EXPANDED VIEW: Archival Paper Dossier Sheet */
-                <div
-                  className="flex-1 p-6 overflow-y-auto text-[#3A2F33] bg-[#F0E6CB] paper-texture relative"
-                  style={{
-                    borderTop: "3px solid var(--nasa-orange)"
-                  }}
-                >
-                  {/* Dossier Header Strip */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#3A2F33]/20 pb-4 mb-5">
-                    <div>
-                      <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#E8602B]">
-                        <span>{project.codeLabel}</span>
-                        <span>// CONFIDENTIAL DOSSIER</span>
-                      </div>
-                      <h3 className="font-editorial text-2xl sm:text-3xl font-black text-[#0A0C10] mt-1">
-                        {project.title}
-                      </h3>
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <span className="ink-stamp ink-stamp-orange text-xs">
-                        STATUS: {project.status}
-                      </span>
-                      <a
-                        href={project.githubUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="retro-btn"
-                      >
-                        <span className="btn-icon-box">↗</span>
-                        <span>VIEW ON GITHUB</span>
-                      </a>
-                    </div>
-                  </div>
-
-                  {/* Summary Lead */}
-                  <p className="font-mono text-sm leading-relaxed text-[#3A2F33] font-medium mb-6 bg-white/60 p-3 border-l-4 border-[#6E6B4E]">
-                    {project.summary}
-                  </p>
-
-                  {/* Two-Column Technical Breakdown */}
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                    {/* Left: What It Does & How It Works */}
-                    <div className="space-y-4 font-mono text-xs">
-                      <div>
-                        <h4 className="font-bold tracking-wider text-[#0A0C10] uppercase flex items-center gap-2 mb-1">
-                          <span className="w-2 h-2 bg-[#E8602B]" />
-                          WHAT IT DOES
-                        </h4>
-                        <p className="leading-relaxed text-[#3A2F33]/90">
-                          {project.details.whatItDoes}
-                        </p>
-                      </div>
-
-                      <div>
-                        <h4 className="font-bold tracking-wider text-[#0A0C10] uppercase flex items-center gap-2 mb-1">
-                          <span className="w-2 h-2 bg-[#5FA3E0]" />
-                          HOW IT WORKS (PHYSICS + CODE)
-                        </h4>
-                        <p className="leading-relaxed text-[#3A2F33]/90">
-                          {project.details.howItWorks}
-                        </p>
-                      </div>
-
-                      {/* Mathematical Governing Equation */}
-                      <div className="p-3 bg-black/90 text-[#5FA3E0] font-mono text-[11px] rounded border border-[#E8602B]/40">
-                        <div className="text-[9px] text-[#A89A82] mb-1 font-bold tracking-widest uppercase">
-                          GOVERNING RELATIVISTIC / INTEGRATOR FORMULATION:
-                        </div>
-                        <code>{project.details.equations}</code>
-                      </div>
-                    </div>
-
-                    {/* Right: Halftone Plot Figure */}
-                    <div className="flex flex-col">
-                      <div className="border border-[#3A2F33]/40 bg-black p-2 rounded-xs shadow-md">
-                        <ProjectFigureSVG type={project.figureType} />
-                      </div>
-                      <span className="text-[10px] font-mono text-[#6E6B4E] mt-2 italic">
-                        {project.figureCaption}
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Stack Tags & Archival Footer */}
-                  <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-[#3A2F33]/20 font-mono text-xs">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-[10px] tracking-widest font-bold text-[#6E6B4E]">STACK:</span>
-                      {project.tech.map((tag) => (
-                        <span
-                          key={tag}
-                          className="px-2 py-0.5 bg-black/10 border border-[#3A2F33]/30 text-[10px] font-bold"
-                        >
-                          {tag}
-                        </span>
-                      ))}
-                    </div>
-
-                    <div className="flex items-center gap-3">
-                      <RetroBarcode code={`SLUG-${project.slug.toUpperCase()}`} className="h-6" />
-                      <button
-                        type="button"
-                        onClick={() => setActiveSlug(null)}
-                        className="text-[11px] font-bold tracking-wider text-[#E8602B] hover:underline"
-                      >
-                        [ CLOSE DOSSIER ✕ ]
-                      </button>
-                    </div>
+                  <div className="text-[8px] font-mono tracking-wider font-bold py-0.5 px-1 bg-black/25 rounded-xs">
+                    {isSelected ? "▲ OPEN IN DOSSIER" : "▼ CLICK TO INSPECT"}
                   </div>
                 </div>
-              )}
-            </div>
-          );
-        })}
+              </div>
+            );
+          })}
+        </div>
       </div>
 
-      {/* MOBILE STACKED VIEW: Horizontal staggered tabs */}
-      <div className="lg:hidden flex flex-col gap-3">
+      {/* =========================================================================
+          MOBILE VIEW: COMPACT STACKED FOLDER DIVIDERS WITH STAGGERED TABS
+      ========================================================================= */}
+      <div className="md:hidden flex flex-col gap-2.5">
         {projectsData.map((project, index) => {
-          const isExpanded = activeSlug === project.slug;
+          const style = folderStyles[index % folderStyles.length];
+          const isSelected = activeProject?.slug === project.slug;
 
           return (
-            <div
+            <button
               key={project.slug}
-              className="border-2 border-[#E4D6AE]/40 rounded-xs overflow-hidden shadow-lg transition-all"
-              style={{ backgroundColor: project.color }}
+              type="button"
+              onClick={() => handleSelectFolder(project)}
+              className={`w-full p-3 text-left rounded-xs transition-all flex items-center justify-between border ${
+                isSelected ? "ring-2 ring-[#E8602B] scale-[1.01]" : ""
+              }`}
+              style={{
+                backgroundColor: style.bg,
+                color: style.text,
+                borderColor: style.border
+              }}
             >
-              {/* Tab Header Button */}
-              <button
-                type="button"
-                aria-expanded={isExpanded}
-                onClick={() => toggleFolder(project.slug)}
-                className="w-full flex items-center justify-between p-3.5 text-left text-white font-mono focus:outline-none focus:ring-2 focus:ring-amber-400"
-                style={{
-                  borderLeft: `6px solid ${project.accentColor}`
-                }}
-              >
-                <div className="flex items-center gap-2">
-                  <span className="font-bold text-xs text-[#E9B93A]">{project.codeLabel}</span>
-                  <span className="font-bold text-sm tracking-wide">{project.title}</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-[10px] px-2 py-0.5 rounded bg-black/40 text-amber-300 font-mono">
-                    {project.status}
-                  </span>
-                  <span className="text-base font-bold text-white/80">
-                    {isExpanded ? "▲" : "▼"}
-                  </span>
-                </div>
-              </button>
-
-              {/* Mobile Expanded Sheet */}
-              {isExpanded && (
-                <div className="p-4 bg-[#F0E6CB] text-[#3A2F33] paper-texture border-t border-[#3A2F33]/30 space-y-4">
-                  <p className="font-mono text-xs leading-relaxed font-medium">
-                    {project.summary}
-                  </p>
-
-                  <div className="border border-[#3A2F33]/40 bg-black p-1.5 rounded-xs">
-                    <ProjectFigureSVG type={project.figureType} />
-                    <span className="text-[9px] font-mono text-[#A89A82] block mt-1">
-                      {project.figureCaption}
-                    </span>
-                  </div>
-
-                  <div className="space-y-3 font-mono text-xs">
-                    <div>
-                      <strong className="text-[#0A0C10] block mb-1">WHAT IT DOES:</strong>
-                      <p className="text-current/90">{project.details.whatItDoes}</p>
-                    </div>
-
-                    <div>
-                      <strong className="text-[#0A0C10] block mb-1">HOW IT WORKS:</strong>
-                      <p className="text-current/90">{project.details.howItWorks}</p>
-                    </div>
-
-                    <div className="p-2 bg-black text-[#5FA3E0] font-mono text-[10px] rounded border border-[#E8602B]/40">
-                      <code>{project.details.equations}</code>
-                    </div>
-                  </div>
-
-                  {/* Stack tags */}
-                  <div className="flex flex-wrap gap-1.5 pt-2">
-                    {project.tech.map((t) => (
-                      <span key={t} className="px-2 py-0.5 bg-black/10 border border-[#3A2F33]/30 text-[10px] font-bold">
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Actions */}
-                  <div className="pt-2 flex items-center justify-between border-t border-[#3A2F33]/20">
-                    <a
-                      href={project.githubUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="retro-btn"
-                    >
-                      <span className="btn-icon-box">↗</span>
-                      <span>GITHUB REPO</span>
-                    </a>
-                    <button
-                      onClick={() => setActiveSlug(null)}
-                      className="text-xs font-mono font-bold text-[#E8602B]"
-                    >
-                      CLOSE ✕
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
+              <div className="flex items-center gap-2.5">
+                <span className="text-xs font-mono font-bold" style={{ color: style.accent }}>
+                  {project.codeLabel}
+                </span>
+                <span className="text-xs font-bold font-mono tracking-wide">
+                  {project.title}
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-[9px] font-mono px-1.5 py-0.5 bg-black/40 rounded-xs text-amber-300">
+                  {project.status}
+                </span>
+                <span className="text-xs font-bold opacity-80">
+                  {isSelected ? "▲" : "▼"}
+                </span>
+              </div>
+            </button>
           );
         })}
       </div>
+
+      {/* =========================================================================
+          IN-PAGE ARCHIVAL DOSSIER DETAILS SHEET (OPENS RIGHT IN THE SAME PAGE!)
+          Includes "VIEW ON GITHUB ↗" button to the project's repository.
+      ========================================================================= */}
+      {activeProject && (
+        <div
+          id="project-detail-sheet"
+          className="w-full bg-[#F0E6CB] text-[#3A2F33] paper-texture p-6 sm:p-8 border-4 border-[#0A0C10] shadow-2xl relative rounded-xs transition-all animate-fadeIn"
+          style={{
+            borderTop: "6px solid var(--nasa-orange)"
+          }}
+        >
+          {/* Top Dossier Header Bar */}
+          <div className="flex flex-wrap items-center justify-between gap-4 border-b-2 border-[#3A2F33]/25 pb-4 mb-6">
+            <div className="space-y-1">
+              <div className="flex items-center gap-2 text-xs font-mono font-bold tracking-widest text-[#E8602B]">
+                <Crosshair className="text-[#E8602B]" />
+                <span>{activeProject.codeLabel}</span>
+                <span>// ARCHIVAL PROJECT DOSSIER</span>
+                {activeProject.affiliation && (
+                  <span className="text-[#6E6B4E] hidden sm:inline">
+                    · {activeProject.affiliation}
+                  </span>
+                )}
+              </div>
+              <h3 className="font-editorial text-2xl sm:text-4xl font-black text-[#0A0C10] leading-tight">
+                {activeProject.title}
+              </h3>
+            </div>
+
+            {/* Actions: VIEW ON GITHUB and Close */}
+            <div className="flex items-center gap-3">
+              <span className="ink-stamp ink-stamp-orange text-xs">
+                STATUS: {activeProject.status}
+              </span>
+
+              {/* DIRECT GITHUB BUTTON */}
+              <a
+                href={activeProject.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="retro-btn bg-[#0A0C10] text-[#F0E6CB] border-[#0A0C10] hover:bg-[#E8602B] hover:text-black font-bold shadow-md"
+                aria-label={`View ${activeProject.title} repository on GitHub`}
+              >
+                <span className="btn-icon-box">↗</span>
+                <span>VIEW ON GITHUB</span>
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setActiveProject(null)}
+                className="p-2 border border-[#3A2F33]/40 hover:bg-[#E8602B] hover:text-black hover:border-black transition-colors"
+                aria-label="Close dossier"
+              >
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+          </div>
+
+          {/* Project Summary Lead */}
+          <div className="p-4 bg-white/70 border-l-4 border-[#6E6B4E] mb-6 shadow-xs font-mono text-xs sm:text-sm leading-relaxed text-[#0A0C10] font-medium">
+            {activeProject.summary}
+          </div>
+
+          {/* Two-Column Technical Breakdown */}
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-6">
+            {/* Left: What It Does & How It Works */}
+            <div className="lg:col-span-7 space-y-4 font-mono text-xs">
+              <div>
+                <h4 className="font-bold tracking-wider text-[#0A0C10] uppercase flex items-center gap-2 mb-1.5 text-xs">
+                  <span className="w-2.5 h-2.5 bg-[#E8602B]" />
+                  WHAT IT DOES
+                </h4>
+                <p className="leading-relaxed text-[#3A2F33]/90 bg-white/40 p-3 border border-[#3A2F33]/15">
+                  {activeProject.details.whatItDoes}
+                </p>
+              </div>
+
+              <div>
+                <h4 className="font-bold tracking-wider text-[#0A0C10] uppercase flex items-center gap-2 mb-1.5 text-xs">
+                  <span className="w-2.5 h-2.5 bg-[#5FA3E0]" />
+                  HOW IT WORKS (PHYSICS & COMPUTATIONAL METHODS)
+                </h4>
+                <p className="leading-relaxed text-[#3A2F33]/90 bg-white/40 p-3 border border-[#3A2F33]/15">
+                  {activeProject.details.howItWorks}
+                </p>
+              </div>
+
+              {/* Mathematical Formulation */}
+              <div className="p-3.5 bg-[#0A0C10] text-[#5FA3E0] font-mono text-xs rounded-xs border-2 border-[#E8602B]/40 shadow-inner">
+                <div className="text-[10px] text-[#A89A82] mb-1 font-bold tracking-widest uppercase flex items-center justify-between">
+                  <span>GOVERNING MATHEMATICAL FORMULATION:</span>
+                  <span className="text-[#E9B93A]">{activeProject.year}</span>
+                </div>
+                <code className="block overflow-x-auto py-1 text-xs sm:text-sm">
+                  {activeProject.details.equations}
+                </code>
+              </div>
+            </div>
+
+            {/* Right: Halftone Plot Figure */}
+            <div className="lg:col-span-5 flex flex-col justify-between">
+              <div className="border-2 border-[#3A2F33] bg-black p-2 shadow-lg">
+                <ProjectFigureSVG type={activeProject.figureType} />
+              </div>
+              <span className="text-[10px] font-mono text-[#6E6B4E] mt-2 italic leading-tight">
+                {activeProject.figureCaption}
+              </span>
+            </div>
+          </div>
+
+          {/* Stack Tags & Footer Controls */}
+          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t-2 border-[#3A2F33]/20 font-mono text-xs">
+            <div className="flex flex-wrap items-center gap-2">
+              <span className="text-[10px] tracking-widest font-bold text-[#6E6B4E]">COMPUTATIONAL STACK:</span>
+              {activeProject.tech.map((tag) => (
+                <span
+                  key={tag}
+                  className="px-2.5 py-0.5 bg-black/10 border border-[#3A2F33]/30 text-[10px] font-bold"
+                >
+                  {tag}
+                </span>
+              ))}
+            </div>
+
+            <div className="flex items-center gap-4">
+              <a
+                href={activeProject.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-mono text-xs font-bold text-[#E8602B] hover:underline flex items-center gap-1"
+              >
+                <span>OPEN REPOSITORY</span>
+                <ArrowUpRight className="w-3.5 h-3.5" />
+              </a>
+
+              <button
+                type="button"
+                onClick={() => setActiveProject(null)}
+                className="px-3 py-1 bg-black/10 hover:bg-black hover:text-white border border-[#3A2F33]/40 text-xs font-bold transition-all"
+              >
+                [ CLOSE DOSSIER ✕ ]
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

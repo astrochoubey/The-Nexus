@@ -347,9 +347,9 @@ export default function AstroPage() {
       ========================================================================= */}
       <section
         id="projects-archive"
-        className="w-full py-20 px-4 sm:px-8 bg-[#0F1116] border-b-2 border-[#E4D6AE]/20 hairline-grid-dark relative"
+        className="w-full py-10 px-4 sm:px-8 bg-[#0F1116] border-b-2 border-[#E4D6AE]/20 hairline-grid-dark relative"
       >
-        <div className="max-w-7xl mx-auto space-y-8">
+        <div className="max-w-7xl mx-auto space-y-5">
           {/* Section Header */}
           <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#E4D6AE]/20 pb-4">
             <div>
